@@ -4858,7 +4858,7 @@ console.log(membersSenate)
 
 
 function createColsArray(b) {
-    var cols = [];
+    let cols = [];
     for (n = 0; n < b; n++) {
         cols.push('col' + (n + 1));
     }
@@ -4866,7 +4866,7 @@ function createColsArray(b) {
 }
 
 function createRowsArray(a) {
-    var rows = []
+    let rows = []
     for (m = 0; m < a; m++) {
         rows.push('row' + (m + 1));
     }
@@ -4875,7 +4875,7 @@ function createRowsArray(a) {
 
 
 function printTable(table) {
-    var title = document.getElementsByTagName('h1')[0];
+    let title = document.getElementsByTagName('h1')[0];
     title.parentNode.insertBefore(table, title.nextSibling)
 }
 
@@ -4883,32 +4883,54 @@ function printTable(table) {
 // extract the data needed for each member into an array
 
 let membersInfo = membersSenate.map(function (member) {
-    return [member.first_name + ' ' + (member.middle_name || '') + ' ' + member.last_name, member.party, member.state, member.seniority, member.votes_with_party_pct]
+    return [member.first_name + ' ' + (member.middle_name || '') + ' ' + member.last_name, member.party, member.state, member.seniority, member.votes_with_party_pct + '%', member.url]
 })
 
-console.log(membersInfo)
 
+// function to create table with the required data out of the array of members incl. link to the name
 
-// function to get data out of the array of members
+let tbody = document.createElement('tbody');
 
-function tableOfMembers(array) {
-    let table = document.getElementById('senate-data')
-    let tbody = document.createElement('tbody');
-    let rows = createRowsArray(array.length);
-    for (i = 0; i < array.length; i++) {
-        row = document.createElement('tr');
-        let cols = array[i];
-        cols.forEach(function (value) {
-            col = document.createElement('td');
-            let content = document.createTextNode(value)
-            col.appendChild(content)
-            row.appendChild(col);
-        });
-        tbody.appendChild(row);
-    }
+for (i = 0; i < membersInfo.length; i++) {
+    let row = document.createElement('tr');
+    let cols = membersInfo[i];
 
-    table.appendChild(tbody);
-    document.body.appendChild(table);
+    let a = document.createElement('a');
+    a.setAttribute('href', cols[cols.length - 1]);
+    a.innerHTML = cols[0];
+    let colName = document.createElement('td');
+    colName.appendChild(a);
+    row.appendChild(colName);
+
+    for (n = 1; n < cols.length - 1; n++) {
+        let col = document.createElement('td');
+        let content = document.createTextNode(cols[n]);
+        col.appendChild(content)
+        row.appendChild(col);
+    };
+    tbody.appendChild(row);
 }
 
-tableOfMembers(membersInfo)
+let table = document.getElementById('senate-data')
+table.appendChild(tbody);
+document.body.appendChild(table);
+
+// header of the table
+
+let tableHead = ['Senator', 'Party Affilication', 'State', 'Seniority', 'Party Votes']
+
+
+let header = document.createElement('thead')
+let headRow = document.createElement('tr')
+
+tableHead.forEach(function (title) {
+    let th = document.createElement('th');
+    th.setAttribute('scope','col');
+    let headContent = document.createTextNode(title);
+    th.appendChild(headContent);
+    headRow.appendChild(th);
+})
+
+header.appendChild(headRow);
+
+table.insertBefore(header, tbody)
