@@ -4882,31 +4882,33 @@ function printTable(table) {
 
 // extract the data needed for each member into an array
 
-let membersInfo = membersSenate.map(function(member){
-    return [member.first_name, member.middle_name, member.last_name, member.party, member.state, member.seniority, member.votes_with_party_pct]
+let membersInfo = membersSenate.map(function (member) {
+    return [member.first_name + ' ' + (member.middle_name || '') + ' ' + member.last_name, member.party, member.state, member.seniority, member.votes_with_party_pct]
 })
 
 console.log(membersInfo)
 
 
-
 // function to get data out of the array of members
 
 function tableOfMembers(array) {
-    var table = document.getElementById('senate-data')
-    var tbody = document.createElement('tbody');
-    var rows = createRowsArray(array.length);
-    rows.forEach(function (row) {
+    let table = document.getElementById('senate-data')
+    let tbody = document.createElement('tbody');
+    let rows = createRowsArray(array.length);
+    for (i = 0; i < array.length; i++) {
         row = document.createElement('tr');
-        var cols = createColsArray(7);
-        cols.forEach(function (col) {
+        let cols = array[i];
+        cols.forEach(function (value) {
             col = document.createElement('td');
+            let content = document.createTextNode(value)
+            col.appendChild(content)
             row.appendChild(col);
         });
         tbody.appendChild(row);
-    })
+    }
 
     table.appendChild(tbody);
-    var btn = document.getElementById('table-button');
-    btn.parentNode.insertBefore(table, btn.nextSibling);
+    document.body.appendChild(table);
 }
+
+tableOfMembers(membersInfo)
