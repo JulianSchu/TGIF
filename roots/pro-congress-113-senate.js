@@ -4851,33 +4851,6 @@ var data = {
 
 const dataResultsSenate = data.results[0];
 const membersSenate = dataResultsSenate.members;
-console.log(membersSenate)
-
-
-// following three functions are pre defined to create array of rows and cols as well as a function to print table to the html
-
-
-function createColsArray(b) {
-    let cols = [];
-    for (n = 0; n < b; n++) {
-        cols.push('col' + (n + 1));
-    }
-    return cols
-}
-
-function createRowsArray(a) {
-    let rows = []
-    for (m = 0; m < a; m++) {
-        rows.push('row' + (m + 1));
-    }
-    return rows
-}
-
-
-function printTable(table) {
-    let title = document.getElementsByTagName('h1')[0];
-    title.parentNode.insertBefore(table, title.nextSibling)
-}
 
 
 // extract the data needed for each member into an array
@@ -4913,7 +4886,6 @@ for (i = 0; i < membersInfo.length; i++) {
 
 let table = document.getElementById('senate-data')
 table.appendChild(tbody);
-document.body.appendChild(table);
 
 // header of the table
 
@@ -4921,7 +4893,9 @@ let tableHead = ['Senator', 'Party Affilication', 'State', 'Seniority', 'Party V
 
 
 let header = document.createElement('thead')
+header.setAttribute('class', 'thead-dark')
 let headRow = document.createElement('tr')
+
 
 tableHead.forEach(function (title) {
     let th = document.createElement('th');
