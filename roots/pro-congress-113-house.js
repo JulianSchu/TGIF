@@ -20715,62 +20715,69 @@ var data = {
    ]
 }
 
-const dataResultsHouse = data.results[0];
-const membersHouse = dataResultsHouse.members;
+function createTable(data) {
+
+    // set people as an array of member information
+    
+    const dataResults = data.results[0];
+    const people = dataResults.members;
+
+    // extract the data needed for each member into an subarray
+
+    let membersInfo = people.map(function (member) {
+        return [member.first_name + ' ' + (member.middle_name || '') + ' ' + member.last_name, member.party, member.state, member.seniority, member.votes_with_party_pct + '%', member.url]
+    })
+
+    // function to create table with the required data out of the array of members incl. link to the name
+
+    let tbody = document.createElement('tbody');
+
+    for (i = 0; i < membersInfo.length; i++) {
+        let row = document.createElement('tr');
+        let cols = membersInfo[i];
+
+        let a = document.createElement('a');
+        a.setAttribute('href', cols[cols.length - 1]);
+        a.setAttribute('class', 'text-decoration-none')
+        a.innerHTML = cols[0];
+        let colName = document.createElement('td');
+        colName.appendChild(a);
+        row.appendChild(colName);
+
+        for (n = 1; n < cols.length - 1; n++) {
+            let col = document.createElement('td');
+            let content = document.createTextNode(cols[n]);
+            col.appendChild(content)
+            row.appendChild(col);
+        };
+        tbody.appendChild(row);
+    }
+
+    let table = document.getElementById('members-data')
+    table.appendChild(tbody);
+
+    // header of the table
+
+    let tableHead = ['Senator', 'Party Affilication', 'State', 'Seniority', 'Party Votes']
 
 
-// extract the data needed for each member into an array
-
-let membersInfo = membersHouse.map(function (member) {
-    return [member.first_name + ' ' + (member.middle_name || '') + ' ' + member.last_name, member.party, member.state, member.seniority, member.votes_with_party_pct + '%', member.url]
-})
+    let header = document.createElement('thead')
+    header.setAttribute('class', 'thead-dark')
+    let headRow = document.createElement('tr')
 
 
-// function to create table with the required data out of the array of members incl. link to the name
+    tableHead.forEach(function (title) {
+        let th = document.createElement('th');
+        th.setAttribute('scope', 'col');
+        let headContent = document.createTextNode(title);
+        th.appendChild(headContent);
+        headRow.appendChild(th);
+    })
 
-let tbody = document.createElement('tbody');
+    header.appendChild(headRow);
 
-for (i = 0; i < membersInfo.length; i++) {
-    let row = document.createElement('tr');
-    let cols = membersInfo[i];
-
-    let a = document.createElement('a');
-    a.setAttribute('href', cols[cols.length - 1]);
-    a.innerHTML = cols[0];
-    let colName = document.createElement('td');
-    colName.appendChild(a);
-    row.appendChild(colName);
-
-    for (n = 1; n < cols.length - 1; n++) {
-        let col = document.createElement('td');
-        let content = document.createTextNode(cols[n]);
-        col.appendChild(content)
-        row.appendChild(col);
-    };
-    tbody.appendChild(row);
+    table.insertBefore(header, tbody)
 }
 
-let table = document.getElementById('house-data')
-table.appendChild(tbody);
+createTable(data)
 
-
-// header of the table
-
-let tableHead = ['Senator', 'Party Affilication', 'State', 'Seniority', 'Party Votes']
-
-
-let header = document.createElement('thead');
-header.setAttribute('class', 'thead-dark');
-let headRow = document.createElement('tr')
-
-tableHead.forEach(function (title) {
-    let th = document.createElement('th');
-    th.setAttribute('scope','col');
-    let headContent = document.createTextNode(title);
-    th.appendChild(headContent);
-    headRow.appendChild(th);
-})
-
-header.appendChild(headRow);
-
-table.insertBefore(header, tbody)
