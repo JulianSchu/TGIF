@@ -12,7 +12,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="Assets/styles/styles.css">
 
 </head>
 
@@ -64,15 +64,36 @@
             <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
         </div>
 
+        <div class="container d-flex">
+            <div class="col-8 filter border border-dark border-right-0">
+                <span>Filter by Party&#58; </span>
+                <input type="checkbox" id="R" name="Party" value="Republican">
+                <label for="R">Republican</label>
+                <input type="checkbox" id="D" name="Party" value="Democrat">
+                <label for="D">Democrat</label>
+                <input type="checkbox" id="I" name="Party" value="Independent">
+                <label for="I">Independent</label>
+            </div>
+
+            <div class="col-4 filter border border-dark border-left-0">
+                <div class="float-right">
+                    <span>Filter by State&#58 </span>
+                    <select id="state" name="state">
+                        <option value="All">All</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="container">
             <table id="members-data" class="table table-sm table-hover text-center"></table>
         </div>
     </main>
-    
+
     <footer class="d-flex align-items-start justify-content-center">
         <small class="text-white font-weight-bold">&copy; TGIF | ALL RIGHTS RESERVED</small>
     </footer>
 
-    <script src="pro-congress-113-house.js"></script>
-    
+    <script src="Assets/js/pro-congress-113-house.js"></script>
+
 </body></html>

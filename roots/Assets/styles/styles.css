@@ -7,23 +7,13 @@
 }
 
 .logo-in-text {
-    border: 1rem solid rgba(220,53,69);
+    border: 1rem solid rgba(220, 53, 69);
     min-width: 10rem;
-}
-
-.test {
-    height: 50px;
-    background-color: blue;
-}
-
-
-footer {
-    min-height: 5rem;
 }
 
 
 .bg-header {
-    background-image: url(Assets/washington-capitol.jpg);
+    background-image: url(../../Assets/washington-capitol.jpg);
     background-position: center;
     position: relative;
     padding: 0;
@@ -52,16 +42,20 @@ footer {
     color: white;
 }
 
-.nav-link{
+.nav-link {
     position: relative;
 }
 
 .dropdown-item:hover {
     background-color: rgba(220, 53, 69);
     color: white;
-    
+
 }
 
 main {
     padding: 2rem 0;
+}
+
+footer {
+    min-height: 5rem;
 }

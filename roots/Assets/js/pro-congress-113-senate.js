@@ -4848,7 +4848,7 @@ var data = {
 function createTable(data) {
 
     // set people as an array of member information
-    
+
     const dataResults = data.results[0];
     const people = dataResults.members;
 
@@ -4910,3 +4910,37 @@ function createTable(data) {
 }
 
 createTable(data)
+
+
+
+
+let parties = document.getElementsByName('Party')
+console.log(parties)
+
+
+
+
+for (p = 0; p < parties.length; p++) {
+    parties[p].addEventListener('change', filterByParty)
+}
+
+let partiesSelected = ['Republican', 'Democrat', 'Independent']
+
+function filterByParty() {
+    partiesSelected = [];
+    for (i = 0; i < parties.length; i++) {
+        if (parties[i].checked) {
+            partiesSelected.push(parties[i].value);
+            console.log(partiesSelected)
+        }
+    }
+    if (partiesSelected.length === 0) {
+        partiesSelected = ['Republican', 'Democrat', 'Independent']
+        console.log(partiesSelected)
+    }
+}
+
+
+filterByParty()
+
+console.log(partiesSelected)

@@ -12,9 +12,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    
-    <link rel="stylesheet" href="styles.css">
-    
+
+    <link rel="stylesheet" href="Assets/styles/styles.css">
+
 </head>
 
 <body class="bg-danger">
@@ -23,11 +23,11 @@
     <div class="bg-header container-fluid">
         <div class="container d-flex align-items-center">
             <header class="row d-flex align-items-center">
-                <div class="col-4 col-md-3">
+                <div class="col-12 col-sm-4 col-md-3">
                     <img src="/Assets/Logo1.JPG" class="logo img-thumbnail rounded-circle float-left" alt="logo.jpg">
                 </div>
 
-                <div class="col-8 col-md-9">
+                <div class="col-12 col-sm-8 col-md-9">
                     <h1 class="display-1 font-weight-bold text-white">TGIF</h1>
                     <h2 class="text-muted text-black-50 font-weight-bold">Transparent Government In Fact</h2>
                 </div>
@@ -64,6 +64,28 @@
             <p>First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S. Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet secretaries, federal judges, other federal executive officials, military officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the House.</p>
         </div>
 
+        <div class="container d-flex">
+            <div class="col-8 filter border border-dark border-right-0">
+                <span>Filter by Party&#58; </span>
+    
+                <input type="checkbox" id="R" name="Party" value="Republican">
+                <label for="R">Republican</label>
+                <input type="checkbox" id="D" name="Party" value="Democrat">
+                <label for="D">Democrat</label>
+                <input type="checkbox" id="I" name="Party" value="Independent">
+                <label for="I">Independent</label>
+            </div>
+
+            <div class="col-4 filter border border-dark border-left-0">
+                <div class="float-right">
+                    <span>Filter by State&#58 </span>
+                    <select id="state" name="state">
+                        <option value="All">All</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="container">
             <table id="members-data" class="table table-sm table-hover text-center"></table>
         </div>
@@ -74,6 +96,8 @@
     </footer>
 
 
-    <script src="pro-congress-113-senate.js"></script>
+    <script src="Assets/js/pro-congress-113-senate.js"></script>
 
-</body></html>
+</body>
+
+</html>
