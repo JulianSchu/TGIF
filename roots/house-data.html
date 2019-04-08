@@ -10,41 +10,69 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="styles.css">
 
 </head>
 
-<body>
+<body class="bg-danger">
 
-    <header class="container">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="home-starter-page.html">home</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Congress 113</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="house-data.html">House</a>
-                    <a class="dropdown-item" href="senate-data.html">Senate</a>
+
+    <div class="bg-header container-fluid">
+        <div class="container d-flex align-items-center">
+            <header class="row d-flex align-items-center">
+                <div class="col-4 col-md-3">
+                    <img src="/Assets/Logo1.JPG" class="logo img-thumbnail rounded-circle float-left" alt="logo.jpg">
                 </div>
-            </li>
-        </ul>
-    </header>
-    
-     <div class="container">
-        <h2>Congressmen</h2>
-        <p>The major power of the House is to pass federal legislation that affects the entire country, although its bills must also be passed by the Senate and further agreed to by the U.S. President before becoming law (unless both the House and Senate re-pass the legislation with a two-thirds majority in each chamber). The House has some exclusive powers: the power to initiate revenue bills, to impeach officials (impeached officials are subsequently tried in the Senate), and to elect the U.S. President in case there is no majority in the Electoral College.</p>
-        <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
+
+                <div class="col-8 col-md-9">
+                    <h1 class="display-1 font-weight-bold text-white">TGIF</h1>
+                    <h2 class="text-muted text-black-50 font-weight-bold">Transparent Government In Fact</h2>
+                </div>
+            </header>
+        </div>
+
+        <div class="email container-fluid bg-danger">
+            <div class="container text-right">
+                <i class="fas fa-envelope" class="d-inline"></i>
+                <a href="mailto:info@tgif.net">
+                    info@tgif.net</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active bg-dark text-white" href="home-starter-page.html">HOME</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle bg-light input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">CONGRESS 113</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="house-data.html">House</a>
+                        <a class="dropdown-item" href="senate-data.html">Senate</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 
+    <div class="container-fluid bg-light">
+        <div class="introduction container text-justify">
+            <h2>Congressmen</h2>
+            <p>The major power of the House is to pass federal legislation that affects the entire country, although its bills must also be passed by the Senate and further agreed to by the U.S. President before becoming law (unless both the House and Senate re-pass the legislation with a two-thirds majority in each chamber). The House has some exclusive powers: the power to initiate revenue bills, to impeach officials (impeached officials are subsequently tried in the Senate), and to elect the U.S. President in case there is no majority in the Electoral College.</p>
+            <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
+        </div>
 
-    <div class="container">
-        <table id="members-data" class="table table-sm table-hover text-center"></table>
+        <div class="container">
+            <table id="members-data" class="table table-sm table-hover text-center"></table>
+        </div>
     </div>
     
-    <footer>
-        
-        
+    <footer class="d-flex align-items-start justify-content-center">
+        <small class="text-white font-weight-bold">&copy; TGIF | ALL RIGHTS RESERVED</small>
     </footer>
 
     <script src="pro-congress-113-house.js"></script>
+    
 </body></html>
