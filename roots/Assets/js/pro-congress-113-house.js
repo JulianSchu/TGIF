@@ -20730,6 +20730,7 @@ function retrievData(d) {
 let membersInfo = retrievData(data)
 
 
+
 /////////////////////////////////////////////////////
 // create the table based on the retrieved data
 function createTable() {
@@ -20790,6 +20791,7 @@ function createTable() {
 createTable()
 
 
+
 /////////////////////////////////////////////////////
 // create onchange for the filter of the checkbox and filter function based on not-selected value - to hide
 let parties = document.getElementsByName('Party')
@@ -20832,17 +20834,36 @@ function filterOutParty() {
             partyYes[i].parentNode.setAttribute('class', 'show')
         };
     });
+    
+    nullTable()
 
-    let trInTbody = document.getElementsByClassName('hide');
-    if (trInTbody.length === membersInfo.length) {
+}
+
+
+
+/////////////////////////////////////////////////////
+// function to check if the table is empty after user filter. If yes, it will return note message.
+function nullTable(){
+    let tbody = document.getElementsByTagName('tbody')[0];
+    let tr = tbody.childNodes;
+ 
+    let trHide = []
+
+    for (i = 0; i < tr.length; i++) {
+        if (tr[i].className === 'hide' || tr[i].getAttribute('type') === 'hide') {
+            trHide.push(tr[i])
+        }
+    };
+
+    if (trHide.length === membersInfo.length) {
+
         let tfootP = document.getElementById('null-table-text');
         tfootP.innerHTML = 'Sorry. There is no members that fit your filter criterien.'
     } else {
         let tfootP = document.getElementById('null-table-text');
         tfootP.innerHTML = ''
+    };
     }
-}
-
 
 
 
@@ -20886,6 +20907,7 @@ function pushOptions() {
 pushOptions()
 
 
+
 /////////////////////////////////////////////////
 // create onchange for the filter of the dropdown and filter function based on not-selected value - to hide
 
@@ -20917,5 +20939,7 @@ function filterByState() {
             stateYes[i].parentNode.setAttribute('type', 'show')
         };
     };
+    
+    nullTable()
 
 }
