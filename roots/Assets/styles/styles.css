@@ -64,10 +64,7 @@ footer {
     min-height: 5rem;
 }
 
-.hide {
+.hide,
+[type=hide] {
     display: none;
-}
-
-.show {
-    display: block;
 }

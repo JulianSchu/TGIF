@@ -4845,21 +4845,26 @@ var data = {
    ]
 }
 
-
-function createTable(data) {
-
-    // set people as an array of member information
-
-    const dataResults = data.results[0];
+/////////////////////////////////////////////////////
+// get needed data for each member from the dataset
+function retrievData(d) {
+    const dataResults = d.results[0];
     const people = dataResults.members;
-
-    // extract the data needed for each member into an subarray
-
     let membersInfo = people.map(function (member) {
         return [member.first_name + ' ' + (member.middle_name || '') + ' ' + member.last_name, member.party, member.state, member.seniority, member.votes_with_party_pct + '%', member.url]
     })
 
-    // function to create table with the required data out of the array of members incl. link to the name
+    return membersInfo
+}
+
+let membersInfo = retrievData(data)
+
+
+/////////////////////////////////////////////////////
+// create the table based on the retrieved data
+function createTable() {
+
+    //set people as an array of member information
 
     let tbody = document.createElement('tbody');
 
@@ -4911,11 +4916,12 @@ function createTable(data) {
     table.insertBefore(header, tbody)
 }
 
-createTable(data)
+createTable()
 
 
+/////////////////////////////////////////////////////
+// create onchange for the filter of the checkbox and filter function based on not-selected value - to hide
 let parties = document.getElementsByName('Party')
-
 
 for (p = 0; p < parties.length; p++) {
     parties[p].addEventListener('change', filterOutParty)
@@ -4933,7 +4939,7 @@ function filterOutParty() {
             partiesNotSelected.push(parties[i].value[0]);
         }
     };
-    
+
     if (partiesSelected.length === 0) {
         partiesSelected = ['R', 'D', 'I']
     };
@@ -4948,11 +4954,84 @@ function filterOutParty() {
             partyNot[i].parentNode.setAttribute('class', 'hide')
         };
     });
-    
+
     partiesSelected.forEach(function (yes) {
         let partyYes = document.getElementsByClassName(yes);
         for (i = 0; i < partyYes.length; i++) {
             partyYes[i].parentNode.setAttribute('class', 'show')
         };
-})
+    })
+}
+
+/////////////////////////////////////////////////////
+// create unique state list and append them to the dropdown list - appendChild
+function getState() {
+    let states = [];
+    membersInfo.forEach(function (member) {
+        states.push(member[2]);
+    })
+    let unique = [];
+    for (a = 0; a < states.length; a++) {
+        if (states[a] = states[a + 1]) {
+            if (unique.indexOf(states[a]) < 0) {
+                unique.push(states[a])
+            }
+        }
+    }
+
+    return unique.sort().reverse();
+
+}
+
+getState()
+
+let unique = getState()
+
+function pushOptions() {
+    unique.forEach(function (st) {
+        let opt = document.createElement('option');
+        opt.setAttribute('value', st)
+        let state = document.createTextNode(st);
+        opt.appendChild(state);
+        opt.setAttribute('value', st)
+        opt.setAttribute('id', st)
+        let opt1 = document.getElementById('all');
+        opt1.parentNode.insertBefore(opt, opt1.nextSibling);
+    })
+}
+
+pushOptions()
+
+
+/////////////////////////////////////////////////
+// create onchange for the filter of the dropdown and filter function based on not-selected value - to hide
+
+let states = document.getElementById('state')
+
+states.addEventListener('change', filterByState)
+
+function filterByState() {
+
+    let optIndex = states.selectedIndex;
+
+    if (states[optIndex].value === 'All') {
+        let allTr = document.getElementsByTagName('tr');
+        for (i = 0; i < allTr.length; i++) {
+            allTr[i].setAttribute('type', 'show')
+        }
+    } else {
+
+        unique.forEach(function (st) {
+            let tdState = document.getElementsByClassName(st)
+            for (s = 0; s < tdState.length; s++) {
+                tdState[s].parentNode.setAttribute('type', 'hide')
+            }
+        })
+
+        let stateYes = document.getElementsByClassName(states[optIndex].value);
+
+        for (i = 0; i < stateYes.length; i++) {
+            stateYes[i].parentNode.setAttribute('type', 'show')
+        };
+    }
 }
