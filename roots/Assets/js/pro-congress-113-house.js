@@ -20747,6 +20747,7 @@ function createTable(data) {
         for (n = 1; n < cols.length - 1; n++) {
             let col = document.createElement('td');
             let content = document.createTextNode(cols[n]);
+            col.setAttribute('class', cols[n]);
             col.appendChild(content)
             row.appendChild(col);
         };
@@ -20781,3 +20782,46 @@ function createTable(data) {
 
 createTable(data)
 
+
+let parties = document.getElementsByName('Party')
+
+
+for (p = 0; p < parties.length; p++) {
+    parties[p].addEventListener('change', filterOutParty)
+}
+
+function filterOutParty() {
+    let partiesSelected = []
+    let partiesNotSelected = [];
+    for (i = 0; i < parties.length; i++) {
+        if (parties[i].checked) {
+
+            partiesSelected.push(parties[i].value[0]);
+
+        } else {
+            partiesNotSelected.push(parties[i].value[0]);
+        }
+    };
+    
+    if (partiesSelected.length === 0) {
+        partiesSelected = ['R', 'D', 'I']
+    };
+
+    if (partiesNotSelected.length === 3) {
+        partiesNotSelected = []
+    };
+
+    partiesNotSelected.forEach(function (not) {
+        let partyNot = document.getElementsByClassName(not);
+        for (i = 0; i < partyNot.length; i++) {
+            partyNot[i].parentNode.setAttribute('class', 'hide')
+        };
+    });
+    
+    partiesSelected.forEach(function (yes) {
+        let partyYes = document.getElementsByClassName(yes);
+        for (i = 0; i < partyYes.length; i++) {
+            partyYes[i].parentNode.setAttribute('class', 'show')
+        };
+})
+}

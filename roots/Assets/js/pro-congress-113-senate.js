@@ -4845,139 +4845,6 @@ var data = {
    ]
 }
 
-//function retrievData(c) {
-//    const dataResults = c.results[0];
-//    const people = dataResults.members;
-//    let membersInfo = people.map(function (member) {
-//        return [member.first_name + ' ' + (member.middle_name || '') + ' ' + member.last_name, member.party, member.state, member.seniority, member.votes_with_party_pct + '%', member.url]
-//    })
-//    return membersInfo
-//}
-//
-//let membersInfo = retrievData(data);
-//
-//
-//// onchange of selection, an array of selected parties will be displayed
-//
-//let parties = document.getElementsByName('Party')
-//console.log(parties)
-//
-//for (p = 0; p < parties.length; p++) {
-//    parties[p].addEventListener('change', filterByParty)
-//}
-//
-//let partiesSelected = ['Republican', 'Democrat', 'Independent']
-//
-//function filterByParty() {
-//    let partiesSelected = [];
-//    for (i = 0; i < parties.length; i++) {
-//        if (parties[i].checked) {
-//            partiesSelected.push(parties[i].value);
-//        }
-//    };
-//
-//    if (partiesSelected.length === 0) {
-//        partiesSelected = ['Republican', 'Democrat', 'Independent']
-//    };
-//
-//    let filteredMembers = [];
-//    let selectResult = partiesSelected;
-//    selectResult.forEach(function (party) {
-//        membersInfo.forEach(function (member) {
-//            if (member[1] == party[0]) {
-//                filteredMembers.push(member)
-//            }
-//        })
-//    });
-//    
-//    return filteredMembers
-//}
-//
-//;
-//
-//// filter of selected membersInfo according to the selection of the users
-////
-////function selectedMembers(a) {
-////    let filteredMembers = [];
-////    let selectResult = filterByParty()
-////    selectResult.forEach(function (party) {
-////        membersInfo.forEach(function (member) {
-////            if (member[1] == party[0]) {
-////                filteredMembers.push(member)
-////            }
-////        })
-////    })
-////    return filteredMembers
-////}
-//
-//function createTable(b) {
-//
-//    // set people as an array of member information
-//
-//    //    const dataResults = data.results[0];
-//    //    const people = dataResults.members;
-//    //
-//    //    // extract the data needed for each member into an subarray
-//    //
-//    //    let membersInfo = people.map(function (member) {
-//    //        return [member.first_name + ' ' + (member.middle_name || '') + ' ' + member.last_name, member.party, member.state, member.seniority, member.votes_with_party_pct + '%', member.url]
-//    //    })
-//    //
-//    //    // function to create table with the required data out of the array of members incl. link to the name
-////
-////    let membersInfo = selectedMembers(b);
-//
-//    let tbody = document.createElement('tbody');
-//
-//    for (i = 0; i < membersInfo.length; i++) {
-//        let row = document.createElement('tr');
-//        let cols = membersInfo[i];
-//
-//        let a = document.createElement('a');
-//        a.setAttribute('href', cols[cols.length - 1]);
-//        a.setAttribute('class', 'text-decoration-none')
-//        a.innerHTML = cols[0];
-//        let colName = document.createElement('td');
-//        colName.appendChild(a);
-//        row.appendChild(colName);
-//
-//        for (n = 1; n < cols.length - 1; n++) {
-//            let col = document.createElement('td');
-//            let content = document.createTextNode(cols[n]);
-//            col.appendChild(content)
-//            row.appendChild(col);
-//        };
-//        tbody.appendChild(row);
-//    }
-//
-//    let table = document.getElementById('members-data')
-//    table.appendChild(tbody);
-//
-//    // header of the table
-//
-//    let tableHead = ['Senator', 'Party Affilication', 'State', 'Seniority', 'Party Votes']
-//
-//
-//    let header = document.createElement('thead')
-//    header.setAttribute('class', 'thead-dark')
-//    let headRow = document.createElement('tr')
-//
-//
-//    tableHead.forEach(function (title) {
-//        let th = document.createElement('th');
-//        th.setAttribute('scope', 'col');
-//        let headContent = document.createTextNode(title);
-//        th.appendChild(headContent);
-//        headRow.appendChild(th);
-//    })
-//
-//    header.appendChild(headRow);
-//
-//    table.insertBefore(header, tbody)
-//}
-//
-//createTable()
-
 
 function createTable(data) {
 
@@ -5047,42 +4914,45 @@ function createTable(data) {
 createTable(data)
 
 
-
-//let parties = document.getElementsByClassName('R')
-//console.log(parties)
-//
-//let rowToHide
-//
-//console.log(parties[0])
-//                    
-//for (i=0; i<parties.length; i++) {
-//    parties[i].parentNode.setAttribute('class', 'hide')
-//    console.log(parties[i].parentNode)
-//}
-
 let parties = document.getElementsByName('Party')
-console.log(parties)
+
 
 for (p = 0; p < parties.length; p++) {
-    parties[p].addEventListener('change', filterByParty)
+    parties[p].addEventListener('change', filterOutParty)
 }
 
-// parties selected --> next step should be parties not selected
-function filterByParty() {
-    let partiesSelected = [];
+function filterOutParty() {
+    let partiesSelected = []
+    let partiesNotSelected = [];
     for (i = 0; i < parties.length; i++) {
         if (parties[i].checked) {
+
             partiesSelected.push(parties[i].value[0]);
+
+        } else {
+            partiesNotSelected.push(parties[i].value[0]);
         }
     };
-
+    
     if (partiesSelected.length === 0) {
         partiesSelected = ['R', 'D', 'I']
     };
 
-    console.log(partiesSelected);
-    return partiesSelected
+    if (partiesNotSelected.length === 3) {
+        partiesNotSelected = []
+    };
 
+    partiesNotSelected.forEach(function (not) {
+        let partyNot = document.getElementsByClassName(not);
+        for (i = 0; i < partyNot.length; i++) {
+            partyNot[i].parentNode.setAttribute('class', 'hide')
+        };
+    });
+    
+    partiesSelected.forEach(function (yes) {
+        let partyYes = document.getElementsByClassName(yes);
+        for (i = 0; i < partyYes.length; i++) {
+            partyYes[i].parentNode.setAttribute('class', 'show')
+        };
+})
 }
-
-console.log(filterByParty())

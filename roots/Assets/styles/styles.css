@@ -63,3 +63,11 @@ main {
 footer {
     min-height: 5rem;
 }
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
