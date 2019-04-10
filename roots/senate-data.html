@@ -24,7 +24,7 @@
         <div class="container d-flex align-items-center">
             <header class="row d-flex align-items-center">
                 <div class="col-12 col-sm-4 col-md-3">
-                    <img src="/Assets/Logo1.JPG" class="logo img-thumbnail rounded-circle float-left" alt="logo.jpg">
+                    <img src="Assets/Logo1.jpg" class="logo img-thumbnail rounded-circle float-left" alt="logo.jpg">
                 </div>
 
                 <div class="col-12 col-sm-8 col-md-9">
@@ -59,6 +59,7 @@
     </div>
 
     <main class="container-fluid bg-light">
+       
         <div class="introduction container text-justify">
             <h2>Senators</h2>
             <p>First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S. Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet secretaries, federal judges, other federal executive officials, military officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the House.</p>
@@ -67,7 +68,7 @@
         <div class="container d-flex">
             <div class="col-8 filter border border-dark border-right-0">
                 <span>Filter by Party&#58; </span>
-    
+
                 <input type="checkbox" id="R" name="Party" value="Republican">
                 <label for="R">Republican</label>
                 <input type="checkbox" id="D" name="Party" value="Democrat">
@@ -87,7 +88,15 @@
         </div>
 
         <div class="container">
-            <table id="members-data" class="table table-sm table-hover text-center"></table>
+            <table id="members-data" class="table table-sm table-hover text-center">
+                <colgroup>
+                    <col style="width:28%">
+                    <col style="width:18%">
+                    <col style="width:18%">
+                    <col style="width:18%">
+                    <col style="width:18%">
+                </colgroup>
+            </table>
             <p id="null-table-text" class="text-danger font-weight-bold"></p>
         </div>
     </main>
@@ -99,6 +108,4 @@
 
     <script src="Assets/js/pro-congress-113-senate.js"></script>
 
-</body>
-
-</html>
+</body></html>

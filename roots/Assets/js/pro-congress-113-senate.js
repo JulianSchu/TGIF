@@ -4896,21 +4896,33 @@ function createTable() {
 
     // header of the table
 
-    let tableHead = ['Senator', 'Party Affilication', 'State', 'Seniority', 'Party Votes']
-
+    let tableHead = ['Senator ', 'Party Affilication ', 'State ', 'Seniority ', 'Party Votes ']
 
     let header = document.createElement('thead')
     header.setAttribute('class', 'thead-dark')
     let headRow = document.createElement('tr')
 
-
-    tableHead.forEach(function (title) {
+    for (i = 0; i < tableHead.length; i++) {
         let th = document.createElement('th');
         th.setAttribute('scope', 'col');
-        let headContent = document.createTextNode(title);
+        let headContent = document.createTextNode(tableHead[i]);
         th.appendChild(headContent);
+
+        //<button type="button" class="btn btn-sm bg-dark border-secondary"><i class="fas fa-caret-square-down text-white"></i></button>
+
+        let btn = document.createElement('button');
+        btn.setAttribute('type', 'button');
+        btn.setAttribute('class', 'btn btn-sm bg-dark border-secondary btn-sort');
+
+        let arrow = document.createElement('i')
+        arrow.setAttribute('class', 'fas fa-caret-square-down text-white');
+        arrow.setAttribute('id', i);
+
+        btn.appendChild(arrow);
+        th.appendChild(btn);
+
         headRow.appendChild(th);
-    })
+    }
 
     header.appendChild(headRow);
 
@@ -4964,7 +4976,7 @@ function filterOutParty() {
             partyYes[i].parentNode.setAttribute('class', 'show')
         };
     });
-    
+
     nullTable()
 
 }
@@ -4973,10 +4985,10 @@ function filterOutParty() {
 
 /////////////////////////////////////////////////////
 // function to check if the table is empty after user filter. If yes, it will return note message.
-function nullTable(){
+function nullTable() {
     let tbody = document.getElementsByTagName('tbody')[0];
     let tr = tbody.childNodes;
- 
+
     let trHide = []
 
     for (i = 0; i < tr.length; i++) {
@@ -4993,7 +5005,7 @@ function nullTable(){
         let tfootP = document.getElementById('null-table-text');
         tfootP.innerHTML = ''
     };
-    }
+}
 
 
 
@@ -5069,7 +5081,127 @@ function filterByState() {
             stateYes[i].parentNode.setAttribute('type', 'show')
         };
     };
-    
+
     nullTable()
 
+}
+
+
+
+/////////////////////////////////////////////////
+// sort table by click
+let sortBtns = document.getElementsByClassName('fa-caret-square-down');
+
+for (i = 0; i < sortBtns.length; i++) {
+    sortBtns[i].addEventListener('click', sortTable)
+}
+
+function sortTable() {
+    var n, links, switching, rows, i, x, y, shouldSwitch
+
+    n = this.getAttribute('id');
+    switching = true;
+
+    if (n == 0) {
+
+        while (switching) {
+
+            rows = showTable();
+            switching = false;
+
+            for (i = 0; i < (rows.length - 1); i++) {
+
+                shouldSwitch = false;
+
+                x = rows[i].childNodes[0].childNodes[0];
+                y = rows[i + 1].childNodes[0].childNodes[0];
+
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+
+            if (shouldSwitch) {
+                let nameNode = x.parentNode;
+                let nameRow = nameNode.parentNode;
+
+                let nameNode1 = y.parentNode;
+                let nameRow1 = nameNode1.parentNode;
+
+                nameRow.parentNode.insertBefore(nameRow1, nameRow);
+                switching = true;
+            }
+        }
+
+    } else if (n == 3) {
+
+        while (switching) {
+
+            switching = false;
+            rows = showTable();
+
+            for (i = 0; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName('td')[n];
+                y = rows[i + 1].getElementsByTagName('td')[n];
+
+                if (+x.innerHTML > +y.innerHTML) {
+
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+
+    } else {
+
+        while (switching) {
+
+            switching = false;
+            rows = showTable();
+
+            for (i = 0; i < (rows.length - 1); i++) {
+
+                shouldSwitch = false;
+
+                x = rows[i].getElementsByTagName('td')[n];
+                y = rows[i + 1].getElementsByTagName('td')[n];
+
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+}
+
+// The following function lets sortTable only goes through the rows that are shown
+function showTable() {
+    let tbody = document.getElementsByTagName('tbody')[0];
+    let tr = tbody.childNodes;
+
+    let trShow = []
+
+    for (i = 0; i < tr.length; i++) {
+        if (tr[i].className != 'hide' && tr[i].getAttribute('type') != 'hide') {
+            trShow.push(tr[i])
+        }
+    };
+
+    return trShow
+    console.log(trShow)
 }
