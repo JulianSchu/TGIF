@@ -72,3 +72,13 @@ footer {
 .btn-sort {
     padding: 0.2rem;
 }
+
+.left-col {
+    padding-left: 0;
+    padding-right: 0.5rem;
+}
+
+.right-col {
+    padding-left: 0.5rem;
+    padding-right: 0
+}
