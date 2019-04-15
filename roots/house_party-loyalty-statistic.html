@@ -18,7 +18,6 @@
 </head>
 
 <body class="bg-danger">
-
     <div class="bg-header container-fluid">
         <div class="container d-flex align-items-center">
             <header class="row d-flex align-items-center">
@@ -47,11 +46,12 @@
                     <a class="nav-link active bg-dark text-white" href="index.html">HOME</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle bg-light input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">CONGRESS 113</a>
+                    <a class="nav-link active bg-dark text-white dropdown-toggle input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">CONGRESS 113</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="house-data.html">House</a>
                         <a class="dropdown-item" href="senate-data.html">Senate</a>
                     </div>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link active bg-dark text-white dropdown-toggle input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ATTENDANCE</a>
                     <div class="dropdown-menu">
@@ -60,7 +60,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link active bg-dark text-white dropdown-toggle input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">PARTY LOYALTY</a>
+                    <a class="nav-link dropdown-toggle bg-light input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">PARTY LOYALTY</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="house_party-loyalty-statistic.html">House</a>
                         <a class="dropdown-item" href="senate_party-loyalty-statistic.html">Senate</a>
@@ -71,45 +71,69 @@
     </div>
 
     <main class="container-fluid bg-light">
-
-        <div class="introduction container text-justify">
-            <h2>Senators</h2>
-            <p>First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S. Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet secretaries, federal judges, other federal executive officials, military officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the House.</p>
-        </div>
-
-        <div class="container d-flex">
-            <div class="col-8 filter border border-dark border-right-0">
-                <span>Filter by Party&#58; </span>
-
-                <input type="checkbox" id="R" name="Party" value="Republican">
-                <label for="R">Republican</label>
-                <input type="checkbox" id="D" name="Party" value="Democrat">
-                <label for="D">Democrat</label>
-                <input type="checkbox" id="I" name="Party" value="Independent">
-                <label for="I">Independent</label>
+        <div class="introduction container text-justify d-flex">
+            <div class="col-6 left-col">
+                <h2>House-Party Loyalty</h2>
+                <p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans respectively, tend to be the most faithful in voting for their party's nominee for office and legislation that backs their party's agenda. </p>
             </div>
 
-            <div class="col-4 filter border border-dark border-left-0">
-                <div class="float-right">
-                    <span>Filter by State&#58 </span>
-                    <select id="state" name="state">
-                        <option id="all" value="All">All</option>
-                    </select>
-                </div>
+            <div class="col-6 right-col">
+
+                <h3 class="text-left">House at a glance</h3>
+                <table id="4" class="table table-sm table-hover text-center">
+                    <colgroup>
+                        <col style="width:33.33%">
+                        <col style="width:33.33%">
+                        <col style="width:33.33%">
+                    </colgroup>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Party</th>
+                            <th scope="col">Number of Reps</th>
+                            <th scope="col">% Voted with Party*</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
 
-        <div class="container">
-            <table id="members-data" class="table table-sm table-hover text-center">
-                <colgroup>
-                    <col style="width:28%">
-                    <col style="width:18%">
-                    <col style="width:18%">
-                    <col style="width:18%">
-                    <col style="width:18%">
-                </colgroup>
-            </table>
-            <p id="null-table-text" class="text-danger font-weight-bold"></p>
+        <div class="introduction container text-justify d-flex">
+            <div class="col-6 left-col">
+                <h3 class="text-left">Least Loyal (Bottom 10% of Party)*</h3>
+                <table id="2" class="table table-sm table-hover text-center">
+                    <colgroup>
+                        <col style="width:33.33%">
+                        <col style="width:33.33%">
+                        <col style="width:33.33%">
+                    </colgroup>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Number Party Votes</th>
+                            <th>% Party Votes</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="statistic-page col-6 right-col">
+                <h3 class="text-left">Most Loyal (Top 10% of Party)*</h3>
+                <table id="3" class="table table-sm table-hover text-center">
+                    <colgroup>
+                        <col style="width:33.33%">
+                        <col style="width:33.33%">
+                        <col style="width:33.33%">
+                    </colgroup>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Number Party Votes</th>
+                            <th>% Party Votes</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
         </div>
     </main>
 
@@ -117,8 +141,6 @@
         <small class="text-white font-weight-bold">&copy; TGIF | ALL RIGHTS RESERVED</small>
     </footer>
 
-
-    <script src="Assets/js/pro-congress-113-senate.js"></script>
-    <script src="Assets/js/main.js"></script>
-
+    <script src="Assets/js/pro-congress-113-house.js"></script>
+    <script src="Assets/js/statistic.js"></script>
 </body></html>

@@ -80,5 +80,10 @@ footer {
 
 .right-col {
     padding-left: 0.5rem;
-    padding-right: 0
+    padding-right: 0;
+}
+
+.Total {
+    background-color: rgb(230, 230, 230);
+    font-weight: bold
 }
