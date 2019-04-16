@@ -13,14 +13,13 @@ function retrievData(Array) {
     return membersInfo
 }
 
-let membersInfo = retrievData(data)
-
-
 
 /////////////////////////////////////////////////////
 // create the table based on the retrieved data
-function createTable() {
-
+function createTable(obj) {
+    
+    let membersInfo = retrievData(obj)
+    
     //set people as an array of member information
 
     let tbody = document.createElement('tbody');
@@ -86,7 +85,7 @@ function createTable() {
 
 }
 
-createTable()
+createTable(data)
 
 
 
@@ -167,7 +166,8 @@ function nullTable() {
 
 /////////////////////////////////////////////////////
 // create unique state list and append them to the dropdown list - appendChild
-function getState() {
+function getState(obj) {
+    let membersInfo = retrievData(obj)
     let states = [];
     membersInfo.forEach(function (member) {
         states.push(member[2]);
@@ -185,11 +185,9 @@ function getState() {
 
 }
 
-getState()
 
-let unique = getState()
-
-function pushOptions() {
+function pushOptions(obj) {
+    let unique = getState(obj)
     unique.forEach(function (st) {
         let opt = document.createElement('option');
         opt.setAttribute('value', st)
@@ -202,11 +200,11 @@ function pushOptions() {
     })
 }
 
-pushOptions()
+pushOptions(data)
 
 
 
-/////////////////////////////////////////////////
+////////////////////////////////////////////////////
 // create onchange for the filter of the dropdown and filter function based on not-selected value - to hide
 
 let states = document.getElementById('state')
@@ -244,7 +242,7 @@ function filterByState() {
 
 
 
-/////////////////////////////////////////////////
+///////////////////////////////////////////////////
 // sort table by click
 let sortBtns = document.getElementsByClassName('fa-caret-square-down');
 

@@ -87,3 +87,9 @@ footer {
     background-color: rgb(230, 230, 230);
     font-weight: bold
 }
+
+.seperater {
+    border: solid;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
