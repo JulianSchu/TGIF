@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <title>Senate Starter Page</title>
@@ -18,7 +19,8 @@
 
 <body class="bg-danger">
 
-
+    <p id="source" class="d-none">https://api.propublica.org/congress/v1/113/senate/members.json</p>
+   
     <div class="bg-header container-fluid">
         <div class="container d-flex align-items-center">
             <header class="row d-flex align-items-center">
@@ -114,19 +116,22 @@
     <footer class="d-flex align-items-start justify-content-center">
         <small class="text-white font-weight-bold">&copy; TGIF | ALL RIGHTS RESERVED</small>
     </footer>
-<script>
-    let collapse = document.getElementById('collapse');
-let click = 0
-collapse.addEventListener('click', readLess);
 
-function readLess() {
-    click = click + 1;
-    console.log(click)
-    if (click % 2 != 0) {
-        collapse.innerHTML = 'Read Less';
-    } else {
-        collapse.innerHTML = 'Read More';
-    }
-}
+    <script>
+        let collapse = document.getElementById('collapse');
+        let click = 0
+        collapse.addEventListener('click', readLess);
+
+        function readLess() {
+            click = click + 1;
+            if (click % 2 != 0) {
+                collapse.innerHTML = 'Read Less';
+            } else {
+                collapse.innerHTML = 'Read More';
+            }
+        }
     </script>
-</body></html>
+    
+</body>
+
+</html>
