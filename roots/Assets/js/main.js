@@ -61,7 +61,6 @@ function createTable(obj) {
 //////////////////////////////////////////
 // create table head
 
-
 let tableHead = ['Senator ', 'Party Affilication ', 'State ', 'Seniority ', 'Party Votes ']
 
 let header = document.createElement('thead')
@@ -79,21 +78,17 @@ for (i = 0; i < tableHead.length; i++) {
     let btn = document.createElement('button');
     btn.setAttribute('type', 'button');
     btn.setAttribute('class', 'btn btn-sm bg-dark border-secondary btn-sort');
-
     let arrow = document.createElement('i')
     arrow.setAttribute('class', 'fas fa-caret-square-down text-white');
     arrow.setAttribute('id', i);
-
     btn.appendChild(arrow);
     th.appendChild(btn);
-
     headRow.appendChild(th);
 }
 
 header.appendChild(headRow);
 
 table.insertBefore(header, tbody)
-
 
 /////////////////////////////////////////////////////
 // create onchange for the filter of the checkbox and filter function based on not-selected value - to hide
@@ -108,40 +103,31 @@ function filterOutParty() {
     let partiesNotSelected = [];
     for (i = 0; i < parties.length; i++) {
         if (parties[i].checked) {
-
             partiesSelected.push(parties[i].value[0]);
-
         } else {
             partiesNotSelected.push(parties[i].value[0]);
         }
     };
-
     if (partiesSelected.length === 0) {
         partiesSelected = ['R', 'D', 'I']
     };
-
     if (partiesNotSelected.length === 3) {
         partiesNotSelected = []
     };
-
     partiesNotSelected.forEach(function (not) {
         let partyNot = document.getElementsByClassName(not);
         for (i = 0; i < partyNot.length; i++) {
             partyNot[i].parentNode.setAttribute('class', 'hide')
         };
     });
-
     partiesSelected.forEach(function (yes) {
         let partyYes = document.getElementsByClassName(yes);
         for (i = 0; i < partyYes.length; i++) {
             partyYes[i].parentNode.setAttribute('class', 'show')
         };
     });
-
     nullTable()
-
 }
-
 
 /////////////////////////////////////////////////////
 // function to check if the table is empty after user filter. If yes, it will return note message.
@@ -149,15 +135,12 @@ function filterOutParty() {
 function nullTable() {
     let tbody = document.getElementsByTagName('tbody')[0];
     let tr = tbody.childNodes;
-
-    let trHide = []
-
+    let trHide = [];
     for (i = 0; i < tr.length; i++) {
         if (tr[i].className === 'hide' || tr[i].getAttribute('type') === 'hide') {
             trHide.push(tr[i])
         }
     };
-
     if (trHide.length === tr.length) {
 
         let tfootP = document.getElementById('null-table-text');
@@ -167,7 +150,6 @@ function nullTable() {
         tfootP.innerHTML = ''
     };
 }
-
 
 /////////////////////////////////////////////////////
 // create unique state list and append them to the dropdown list - appendChild
@@ -184,7 +166,6 @@ function getState(obj) {
             }
         }
     }
-
     return unique.sort().reverse();
 }
 
@@ -202,19 +183,15 @@ function pushOptions(obj) {
     })
 }
 
-
 /////////////////////////////////////////////////
 // create onchange for the filter of the dropdown and filter function based on not-selected value - to hide
 
 let states = document.getElementById('state')
-console.log(states[0].value)
 
 states.addEventListener('change', filterByState)
 
 function filterByState() {
-
     let optIndex = states.selectedIndex;
-
     if (states[optIndex].value === 'All') {
         let allTr = document.getElementsByTagName('tr');
         for (i = 0; i < allTr.length; i++) {
@@ -233,11 +210,8 @@ function filterByState() {
             stateYes[i].parentNode.setAttribute('type', 'show')
         };
     };
-
     nullTable()
-
 }
-
 
 /////////////////////////////////////////////////
 // sort table by click
@@ -251,7 +225,6 @@ function sortTable() {
     var n, links, switching, rows, i, x, y, shouldSwitch
     n = this.getAttribute('id');
     switching = true;
-
     if (n == 0) {
         while (switching) {
             rows = showTable();
@@ -260,7 +233,6 @@ function sortTable() {
                 shouldSwitch = false;
                 x = rows[i].childNodes[0].childNodes[0];
                 y = rows[i + 1].childNodes[0].childNodes[0];
-
                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                     shouldSwitch = true;
                     break;
@@ -284,7 +256,6 @@ function sortTable() {
                 if (n == 3) {
                     x = rows[i].getElementsByTagName('td')[n];
                     y = rows[i + 1].getElementsByTagName('td')[n];
-
                     if (+x.innerHTML > +y.innerHTML) {
                         shouldSwitch = true;
                         break;
@@ -292,14 +263,12 @@ function sortTable() {
                 } else {
                     x = rows[i].getElementsByTagName('td')[n];
                     y = rows[i + 1].getElementsByTagName('td')[n];
-
                     if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                         shouldSwitch = true;
                         break;
                     }
                 }
             }
-
             if (shouldSwitch) {
                 rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                 switching = true;
@@ -308,20 +277,15 @@ function sortTable() {
     }
 }
 
-
 // The following function lets sortTable only goes through the rows that are shown
 function showTable() {
     let tbody = document.getElementsByTagName('tbody')[0];
     let tr = tbody.childNodes;
-
     let trShow = []
-
     for (i = 0; i < tr.length; i++) {
         if (tr[i].className != 'hide' && tr[i].getAttribute('type') != 'hide') {
             trShow.push(tr[i])
         }
     };
-
     return trShow
-    console.log(trShow)
 }
