@@ -1,5 +1,21 @@
-localStorage.getItem("data")
+let url = document.getElementById('source').textContent;
+let myHeader = {
+    headers: {
+        'X-API-Key': 'SWQPv9Ilwk8bHWdt9rlgn7xuEzmbjq3kAxhd5ogr'
+    }
+}
 
+fetch(url, myHeader)
+    .then(res => res.json())
+    .then(function (data) {
+        let membersInfo = retrievData(data);
+        createTable(membersInfo);
+        pushOptions(membersInfo)
+    })
+    .catch(function (err) {
+        console.log(err);
+        alert('Sorry! Something went really wrong. No data will be displayed. There is no response from the source. Maybe they are undergoing a major update. I mean who knows. It\'s America. Everything is possible. So... Please try again later and by later I mean tomorrow or never. BTW I really don\'t like this pop out alert box. But I am too lazy to do anything about it. Have a nice day and may Trump protect you and your family.')
+    })
 
 /////////////////////////////////////////////////////
 // get needed data for each member from the dataset
@@ -9,25 +25,21 @@ function retrievData(Array) {
     let membersInfo = people.map(function (member) {
         return [member.first_name + ' ' + (member.middle_name || '') + ' ' + member.last_name, member.party, member.state, member.seniority, member.votes_with_party_pct + '%', member.url]
     })
-
     return membersInfo
 }
 
-
 /////////////////////////////////////////////////////
 // create the table based on the retrieved data
+
+let table = document.getElementById('members-data');
+let tbody = document.createElement('tbody');
+
+table.appendChild(tbody);
+
 function createTable(obj) {
-    
-    let membersInfo = retrievData(obj)
-    
-    //set people as an array of member information
-
-    let tbody = document.createElement('tbody');
-
-    for (i = 0; i < membersInfo.length; i++) {
+    for (i = 0; i < obj.length; i++) {
         let row = document.createElement('tr');
-        let cols = membersInfo[i];
-
+        let cols = obj[i];
         let a = document.createElement('a');
         a.setAttribute('href', cols[cols.length - 1]);
         a.setAttribute('class', 'text-decoration-none')
@@ -35,7 +47,6 @@ function createTable(obj) {
         let colName = document.createElement('td');
         colName.appendChild(a);
         row.appendChild(colName);
-
         for (n = 1; n < cols.length - 1; n++) {
             let col = document.createElement('td');
             let content = document.createTextNode(cols[n]);
@@ -45,48 +56,43 @@ function createTable(obj) {
         };
         tbody.appendChild(row);
     }
-
-    let table = document.getElementById('members-data');
-    table.appendChild(tbody);
-
-    // header of the table
-
-    let tableHead = ['Senator ', 'Party Affilication ', 'State ', 'Seniority ', 'Party Votes ']
-
-    let header = document.createElement('thead')
-    header.setAttribute('class', 'thead-dark')
-    let headRow = document.createElement('tr')
-
-    for (i = 0; i < tableHead.length; i++) {
-        let th = document.createElement('th');
-        th.setAttribute('scope', 'col');
-        let headContent = document.createTextNode(tableHead[i]);
-        th.appendChild(headContent);
-
-        //<button type="button" class="btn btn-sm bg-dark border-secondary"><i class="fas fa-caret-square-down text-white"></i></button>
-
-        let btn = document.createElement('button');
-        btn.setAttribute('type', 'button');
-        btn.setAttribute('class', 'btn btn-sm bg-dark border-secondary btn-sort');
-
-        let arrow = document.createElement('i')
-        arrow.setAttribute('class', 'fas fa-caret-square-down text-white');
-        arrow.setAttribute('id', i);
-
-        btn.appendChild(arrow);
-        th.appendChild(btn);
-
-        headRow.appendChild(th);
-    }
-
-    header.appendChild(headRow);
-
-    table.insertBefore(header, tbody)
-
 }
 
-createTable(data)
+//////////////////////////////////////////
+// create table head
 
+
+let tableHead = ['Senator ', 'Party Affilication ', 'State ', 'Seniority ', 'Party Votes ']
+
+let header = document.createElement('thead')
+header.setAttribute('class', 'thead-dark')
+let headRow = document.createElement('tr')
+
+for (i = 0; i < tableHead.length; i++) {
+    let th = document.createElement('th');
+    th.setAttribute('scope', 'col');
+    let headContent = document.createTextNode(tableHead[i]);
+    th.appendChild(headContent);
+
+    //<button type="button" class="btn btn-sm bg-dark border-secondary"><i class="fas fa-caret-square-down text-white"></i></button>
+
+    let btn = document.createElement('button');
+    btn.setAttribute('type', 'button');
+    btn.setAttribute('class', 'btn btn-sm bg-dark border-secondary btn-sort');
+
+    let arrow = document.createElement('i')
+    arrow.setAttribute('class', 'fas fa-caret-square-down text-white');
+    arrow.setAttribute('id', i);
+
+    btn.appendChild(arrow);
+    th.appendChild(btn);
+
+    headRow.appendChild(th);
+}
+
+header.appendChild(headRow);
+
+table.insertBefore(header, tbody)
 
 
 /////////////////////////////////////////////////////
@@ -137,9 +143,9 @@ function filterOutParty() {
 }
 
 
-
 /////////////////////////////////////////////////////
 // function to check if the table is empty after user filter. If yes, it will return note message.
+
 function nullTable() {
     let tbody = document.getElementsByTagName('tbody')[0];
     let tr = tbody.childNodes;
@@ -152,7 +158,7 @@ function nullTable() {
         }
     };
 
-    if (trHide.length === membersInfo.length) {
+    if (trHide.length === tr.length) {
 
         let tfootP = document.getElementById('null-table-text');
         tfootP.innerHTML = 'Sorry. There is no members that fit your filter criterien.'
@@ -163,13 +169,11 @@ function nullTable() {
 }
 
 
-
 /////////////////////////////////////////////////////
 // create unique state list and append them to the dropdown list - appendChild
 function getState(obj) {
-    let membersInfo = retrievData(obj)
     let states = [];
-    membersInfo.forEach(function (member) {
+    obj.forEach(function (member) {
         states.push(member[2]);
     })
     let unique = [];
@@ -182,9 +186,7 @@ function getState(obj) {
     }
 
     return unique.sort().reverse();
-
 }
-
 
 function pushOptions(obj) {
     let unique = getState(obj)
@@ -200,14 +202,12 @@ function pushOptions(obj) {
     })
 }
 
-pushOptions(data)
 
-
-
-////////////////////////////////////////////////////
+/////////////////////////////////////////////////
 // create onchange for the filter of the dropdown and filter function based on not-selected value - to hide
 
 let states = document.getElementById('state')
+console.log(states[0].value)
 
 states.addEventListener('change', filterByState)
 
@@ -221,16 +221,14 @@ function filterByState() {
             allTr[i].setAttribute('type', 'show')
         }
     } else {
-
-        unique.forEach(function (st) {
-            let tdState = document.getElementsByClassName(st)
+        for (i = 1; i < states.length; i++) {
+            let st = states[i].value;
+            let tdState = document.getElementsByClassName(st);
             for (s = 0; s < tdState.length; s++) {
                 tdState[s].parentNode.setAttribute('type', 'hide')
             }
-        })
-
+        }
         let stateYes = document.getElementsByClassName(states[optIndex].value);
-
         for (i = 0; i < stateYes.length; i++) {
             stateYes[i].parentNode.setAttribute('type', 'show')
         };
@@ -241,8 +239,7 @@ function filterByState() {
 }
 
 
-
-///////////////////////////////////////////////////
+/////////////////////////////////////////////////
 // sort table by click
 let sortBtns = document.getElementsByClassName('fa-caret-square-down');
 
