@@ -20,7 +20,7 @@
 <body class="bg-danger">
 
     <p id="source" class="d-none">https://api.propublica.org/congress/v1/113/senate/members.json</p>
-
+   
     <div class="bg-header container-fluid">
         <div class="container d-flex align-items-center">
             <header class="row d-flex align-items-center">
@@ -51,30 +51,30 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link active dropdown-toggle bg-dark text-white input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">CONGRESS 113</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="senate-data.html">Senate</a>
                         <a class="dropdown-item" href="house-data.html">House</a>
+                        <a class="dropdown-item" href="senate-data.html">Senate</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link active bg-dark text-white dropdown-toggle input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ATTENDANCE</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="senate_attendance-statistic.html">Senate</a>
                         <a class="dropdown-item" href="house_attendance-statistic.html">House</a>
+                        <a class="dropdown-item" href="senate_attendance-statistic.html">Senate</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link active bg-dark text-white dropdown-toggle input-group-text" data-toggle="dropdown" href="house_party-loyalty-statistic.html" role="button" aria-haspopup="true" aria-expanded="false">PARTY LOYALTY</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="senate_party-loyalty-statistic.html">Senate</a>
                         <a class="dropdown-item" href="house_party-loyalty-statistic.html">House</a>
+                        <a class="dropdown-item" href="senate_party-loyalty-statistic.html">Senate</a>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
 
-    <main class="container-fluid bg-light">
 
+    <main class="container-fluid bg-light">
         <div class="introduction container">
             <div class="row d-flex align-items-start">
                 <div class="col-12 col-md-9 text-justify">
@@ -99,9 +99,8 @@
 
                     </div>
 
-                    <a id="collapse" class="btn bg-dark text-white" data-toggle="collapse" href="#more-info" role="button" aria-expanded="false" aria-controls="more-info" v-on:click="read=!read">
-                        <span v-show="read">Read More</span>
-                        <span v-show="!read">Read Less</span>
+                    <a id="collapse" class="btn bg-dark text-white" data-toggle="collapse" href="#more-info" role="button" aria-expanded="false" aria-controls="more-info">
+                        Read More
                     </a>
 
                 </div>
@@ -118,14 +117,21 @@
         <small class="text-white font-weight-bold">&copy; TGIF | ALL RIGHTS RESERVED</small>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
-        var collapse = new Vue ({
-            el: '#collapse',
-            data: {
-                read: true
-            }           
-        })
-    </script>
+        let collapse = document.getElementById('collapse');
+        let click = 0
+        collapse.addEventListener('click', readLess);
 
-</body></html>
+        function readLess() {
+            click = click + 1;
+            if (click % 2 != 0) {
+                collapse.innerHTML = 'Read Less';
+            } else {
+                collapse.innerHTML = 'Read More';
+            }
+        }
+    </script>
+    
+</body>
+
+</html>

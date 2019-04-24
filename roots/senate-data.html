@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <main class="container-fluid bg-light">
+    <main id="members-data" class="container-fluid bg-light">
 
         <div class="introduction container text-justify">
             <h2>Senators</h2>
@@ -84,26 +84,27 @@
             <div class="col-8 filter border border-dark border-right-0">
                 <span>Filter by Party&#58; </span>
 
-                <input type="checkbox" id="R" name="Party" value="Republican">
+                <input type="checkbox" id="R" name="Party" value="R" v-model="parties" v-on:change="nullTable()">
                 <label for="R">Republican</label>
-                <input type="checkbox" id="D" name="Party" value="Democrat">
+                <input type="checkbox" id="D" name="Party" value="D" v-model="parties" v-on:change="nullTable()">
                 <label for="D">Democrat</label>
-                <input type="checkbox" id="I" name="Party" value="Independent">
+                <input type="checkbox" id="I" name="Party" value="I" v-model="parties" v-on:change="nullTable()">
                 <label for="I">Independent</label>
             </div>
 
             <div class="col-4 filter border border-dark border-left-0">
                 <div class="float-right">
                     <span>Filter by State&#58; </span>
-                    <select id="state" name="state">
-                        <option id="all" value="All">All</option>
+                    <select id="state" name="state" v-model="selectedState" v-on:change="nullTable()">
+                        <option id="all" value="" >All</option>
+                        <option v-for="state in states">{{state}}</option>
                     </select>
                 </div>
             </div>
         </div>
 
         <div class="container">
-            <table id="members-data" class="table table-sm table-hover text-center">
+            <table class="table table-sm table-hover text-center">
                 <colgroup>
                     <col style="width:28%">
                     <col style="width:18%">
@@ -111,8 +112,30 @@
                     <col style="width:18%">
                     <col style="width:18%">
                 </colgroup>
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Senator <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="0" class="fas fa-sort text-white"></i></button></th>
+                        <th scope="col">Party Affiliation <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="1" class="fas fa-sort text-white"></i></button></th>
+                        <th scope="col">State <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="2" class="fas fa-sort text-white"></i></button></th>
+                        <th scope="col">Seniority <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="3" class="fas fa-sort text-white"></i></button></th>
+                        <th scope="col">Party Votes <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="4" class="fas fa-sort text-white"></i></button></th>
+                    </tr>
+                </thead>
+                <tbody v-if="users.length != 0">
+                    <tr v-for="(oneUser, index) in filteredUsers" :key="index">
+                        <td>
+                            <a :href="oneUser.url" class="text-decoration-none">
+                                {{oneUser.first_name}} {{oneUser.middle_name}} {{oneUser.last_name}}
+                            </a>
+                        </td>
+                        <td :class="oneUser.party">{{oneUser.party}}</td>
+                        <td :class="oneUser.state">{{oneUser.state}}</td>
+                        <td>{{oneUser.seniority}}</td>
+                        <td>{{oneUser.votes_with_party_pct}}%</td>
+                    </tr>
+                </tbody>
             </table>
-            <p id="null-table-text" class="text-danger font-weight-bold"></p>
+            <p v-show="footer" class="text-danger font-weight-bold">Sorry. There is no members that fit your filter criterien.</p>
         </div>
     </main>
 
@@ -120,8 +143,7 @@
         <small class="text-white font-weight-bold">&copy; TGIF | ALL RIGHTS RESERVED</small>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="Assets/js/main.js"></script>
-    
-</body>
 
-</html>
+</body></html>

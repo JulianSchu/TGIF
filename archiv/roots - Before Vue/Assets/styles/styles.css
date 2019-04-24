@@ -64,6 +64,11 @@ footer {
     min-height: 5rem;
 }
 
+.hide,
+[type=hide] {
+    display: none;
+}
+
 .btn-sort {
     padding: 0.2rem;
 }

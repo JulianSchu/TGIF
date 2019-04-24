@@ -12,6 +12,7 @@ fetch(url, myHeader)
     .then(function (data) {
         const dataResults = data.results[0];
         const people = dataResults.members;
+        console.log(people);
         getSum(people);
         tenPercent(statistics, people);
         createStatsTable(statistics);
@@ -21,8 +22,8 @@ fetch(url, myHeader)
         alert('Sorry! Something went really wrong. No data will be displayed. There is no response from the source. Maybe they are undergoing a major update. I mean who knows. It\'s America. Everything is possible. So... Please try again later and by later I mean tomorrow or never. BTW I really don\'t like this pop out alert box. But I am too lazy to do anything about it. Have a nice day and may Trump protect you and your family.')
     })
 
-///////////////////////////////////////////////////
-//// Statistics
+/////////////////////////////////////////////////
+// Statistics
 
 let statistics = {
     totalMembers: 0,

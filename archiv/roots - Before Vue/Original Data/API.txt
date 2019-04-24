@@ -1,0 +1,9 @@
+Thank you for your request.
+The following key has been issued for Congress API
+KEY: SWQPv9Ilwk8bHWdt9rlgn7xuEzmbjq3kAxhd5ogr 
+
+An email has been sent to jun.xu@hotmail.de for your records. 
+
+ProPublica, a nonprofit newsroom, is able to provide public access to this API for free thanks to donations from individuals like you. If you appreciate our work, please consider making a donation. Thank you! 
+
+If you have any questions or feedback about our APIs, we'd love to hear from you! Drop us a line at apihelp@propublica.org 
