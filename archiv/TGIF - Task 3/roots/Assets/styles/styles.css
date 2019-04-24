@@ -1,0 +1,89 @@
+.logo {
+    min-height: 10rem;
+    min-width: 10rem;
+    max-height: 10rem;
+    margin: 4rem;
+    margin-left: 0;
+}
+
+.logo-in-text {
+    border: 1rem solid rgba(220, 53, 69);
+    min-width: 10rem;
+}
+
+
+.bg-header {
+    background-image: url(../../Assets/washington-capitol.jpg);
+    background-position: center;
+    position: relative;
+    padding: 0;
+
+}
+
+
+.bg-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(220, 53, 69, 0.35);
+}
+
+
+.email {
+    position: relative;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.email a {
+    color: white;
+}
+
+.nav-link {
+    position: relative;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(220, 53, 69);
+    color: white;
+
+}
+
+main {
+    padding: 2rem 0;
+}
+
+.filter {
+    padding-top: 0.5rem
+}
+
+footer {
+    min-height: 5rem;
+}
+
+.hide,
+[type=hide] {
+    display: none;
+}
+
+.btn-sort {
+    padding: 0.2rem;
+}
+
+.left-col {
+    padding-left: 0;
+    padding-right: 0.5rem;
+}
+
+.right-col {
+    padding-left: 0.5rem;
+    padding-right: 0;
+}
+
+.Total {
+    background-color: rgb(230, 230, 230);
+    font-weight: bold
+}

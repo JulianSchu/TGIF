@@ -14,8 +14,7 @@ var vm = new Vue({
         fetchData() {
             fetch(url, {
                     headers: {
-                        'X-API-Key': 'bkE5mazR6CC9BBNdkHiTlHZBTzivfvrq4eWkam6g'
-                        //'SWQPv9Ilwk8bHWdt9rlgn7xuEzmbjq3kAxhd5ogr'
+                        'X-API-Key': 'bkE5mazR6CC9BBNdkHiTlHZBTzivfvrq4eWkam6g' //'SWQPv9Ilwk8bHWdt9rlgn7xuEzmbjq3kAxhd5ogr'        
                     }
                 })
                 .then(res => res.json())
@@ -63,8 +62,7 @@ var vm = new Vue({
     }
 })
 
-/////////////////////////////////////////////////////
-// create unique state list and append them to the dropdown list - appendChild
+//// create unique state list and append them to the dropdown list - appendChild
 function getState(obj) {
     let states = [];
     obj.forEach(function (member) {
@@ -81,8 +79,7 @@ function getState(obj) {
     return unique.sort();
 }
 
-/////////////////////////////////////////////////
-// sort table by click
+//// sort table by click
 let sortBtns = document.getElementsByClassName('fas fa-sort');
 
 for (i = 0; i < sortBtns.length; i++) {
@@ -90,13 +87,14 @@ for (i = 0; i < sortBtns.length; i++) {
 }
 
 function sortTable() {
-    var n, links, switching, rows, i, x, y, shouldSwitch, dir, switchcount
+    var n, links, switching, rows, i, x, y, shouldSwitch, dir, switchcount, tbody
     n = this.getAttribute('id');
     switching = true;
     dir = 'asc';
     switchcount = 0;
     while (switching) {
-        rows = showTable();
+        tbody = document.getElementsByTagName('tbody')[0];
+        rows = tbody.childNodes;
         switching = false;
         for (i = 0; i < (rows.length - 1); i++) {
             shouldSwitch = false;
@@ -155,17 +153,3 @@ function sortTable() {
         }
     }
 }
-
-// The following function lets sortTable only goes through the rows that are shown
-function showTable() {
-    let tbody = document.getElementsByTagName('tbody')[0];
-    let tr = tbody.childNodes;
-    let trShow = []
-    for (i = 0; i < tr.length; i++) {
-        if (tr[i].className != 'hide' && tr[i].getAttribute('type') != 'hide') {
-            trShow.push(tr[i])
-        }
-    };
-    return trShow
-}
-

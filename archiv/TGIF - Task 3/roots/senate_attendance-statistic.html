@@ -18,9 +18,6 @@
 </head>
 
 <body class="bg-danger">
-
-    <p id="source" class="d-none">https://api.propublica.org/congress/v1/113/house/members.json</p>
-
     <div class="bg-header container-fluid">
         <div class="container d-flex align-items-center">
             <header class="row d-flex align-items-center">
@@ -51,22 +48,22 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link active bg-dark text-white dropdown-toggle input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">CONGRESS 113</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="senate-data.html">Senate</a>
                         <a class="dropdown-item" href="house-data.html">House</a>
+                        <a class="dropdown-item" href="senate-data.html">Senate</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle bg-light input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ATTENDANCE</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="senate_attendance-statistic.html">Senate</a>
                         <a class="dropdown-item" href="house_attendance-statistic.html">House</a>
+                        <a class="dropdown-item" href="senate_attendance-statistic.html">Senate</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link active bg-dark text-white dropdown-toggle input-group-text" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">PARTY LOYALTY</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="senate_party-loyalty-statistic.html">Senate</a>
                         <a class="dropdown-item" href="house_party-loyalty-statistic.html">House</a>
+                        <a class="dropdown-item" href="senate_party-loyalty-statistic.html">Senate</a>
                     </div>
                 </li>
             </ul>
@@ -75,15 +72,15 @@
 
     <main class="container-fluid bg-light">
         <div class="introduction container text-justify d-flex">
-            <div class="col-6 pl-0 pr-4">
-                <h2>House-Attendance</h2>
+            <div class="col-6 left-col">
+                <h2>Senate-Attendance</h2>
                 <p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
 
                 <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
             </div>
-            <div class="col-6 pl-4 pr-0">
+            <div class="col-6 right-col">
 
-                <h3 class="text-left">House at a glance</h3>
+                <h3 class="text-left">Senate at a glance</h3>
                 <table id="4" class="table table-sm table-hover text-center">
                     <colgroup>
                         <col style="width:33.33%">
@@ -98,11 +95,12 @@
                         </tr>
                     </thead>
                 </table>
+
             </div>
         </div>
 
-        <div class="introduction container text-justify d-flex mt-4">
-            <div class="col-6 pl-0 pr-4">
+        <div class="introduction container text-justify d-flex">
+            <div class="col-6 left-col">
                 <h3 class="text-left">Least Engaged (Bottom 10% Attendance)*</h3>
                 <table id="0" class="table table-sm table-hover text-center">
                     <colgroup>
@@ -119,9 +117,9 @@
                     </thead>
                 </table>
             </div>
-            <div class="statistic-page col-6 pl-4 pr-0">
+            <div class="statistic-page col-6">
                 <h3 class="text-left">Most Engaged (Top 10% Attendance)*</h3>
-                <table id="1" class="table table-sm table-hover text-center">
+                 <table id="1" class="table table-sm table-hover text-center">
                     <colgroup>
                         <col style="width:33.33%">
                         <col style="width:33.33%">
@@ -143,6 +141,7 @@
         <small class="text-white font-weight-bold">&copy; TGIF | ALL RIGHTS RESERVED</small>
     </footer>
 
+    <script src="Assets/js/pro-congress-113-senate.js"></script>
     <script src="Assets/js/statistic.js"></script>
 
 </body>
