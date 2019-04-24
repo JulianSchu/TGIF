@@ -81,8 +81,15 @@
             <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
         </div>
 
+        <div class="container input-group flex-nowrap mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text text-dark font border border-dark" id="addon-wrapping">Search by last name</span>
+            </div>
+            <input type="text" class="form-control border border-dark" placeholder="Please enter last name (capital letter is considered)" aria-label="Username" aria-describedby="addon-wrapping" v-model="search">
+        </div>
+
         <div class="container d-flex">
-            <div class="col-8 filter border border-dark border-right-0">
+            <div class="col-8 filter border border-dark border-right-0 rounded-top">
                 <span>Filter by Party&#58; </span>
 
                 <input type="checkbox" id="R" name="Party" value="R" v-model="parties" v-on:change="nullTable()">
@@ -93,11 +100,11 @@
                 <label for="I">Independent</label>
             </div>
 
-            <div class="col-4 filter border border-dark border-left-0">
+            <div class="col-4 filter border border-dark border-left-0 rounded-top">
                 <div class="float-right">
                     <span>Filter by State&#58; </span>
                     <select id="state" name="state" v-model="selectedState" v-on:change="nullTable()">
-                        <option id="all" value="" >All</option>
+                        <option id="all" value="">All</option>
                         <option v-for="state in states">{{state}}</option>
                     </select>
                 </div>
@@ -147,6 +154,4 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="Assets/js/main.js"></script>
 
-</body>
-
-</html>
+</body></html>

@@ -7,7 +7,8 @@ var vm = new Vue({
         parties: [],
         states: [],
         selectedState: '',
-        footer: false
+        footer: false,
+        search: ''
     },
     methods: {
         fetchData() {
@@ -33,33 +34,25 @@ var vm = new Vue({
             let tbody = this.filteredUsers;
             if (tbody.length === 0) {
                 this.footer = true;
-                console.log(this.footer)
             } else {
                 this.footer = false;
-                console.log(this.footer)
             }
         }
     },
     computed: {
         filteredUsers: function () {
             let pArray = this.parties;
-            let sArray = this.selectedState;
-            if (this.parties.length === 0 && this.selectedState === '') {
-                return this.users
-            } else if (this.parties.length != 0 && this.selectedState === '') {
+            let sStr = this.selectedState;
+            let nStr = this.search;
+            if (this.parties.length === 0) {
                 return this.users.filter(function (user) {
-                    if (pArray.indexOf(user.party) != -1) return true;
-                })
-            } else if (this.parties.length === 0 && this.selectedState != '') {
-                return this.users.filter(function (user) {
-                    if (sArray.indexOf(user.state) != -1) return true;
+                    if (user.state.match(sStr) && user.last_name.match(nStr)) return true;
                 })
             } else {
                 return this.users.filter(function (user) {
-                    if (pArray.indexOf(user.party) != -1 && sArray.indexOf(user.state) != -1) return true;
+                    if (pArray.indexOf(user.party) != -1 && user.state.match(sStr) && user.last_name.match(nStr)) return true;
                 });
             };
-
         }
     },
     mounted() {
@@ -172,3 +165,4 @@ function showTable() {
     };
     return trShow
 }
+

@@ -126,6 +126,21 @@
                 read: true
             }           
         })
+        
+        
+        var abc=['A', 'B'];
+        var hij='B'
+        var def=['AB', 'CD']
+        
+        let see = def.filter(function(each) {
+            if (each.match(hij) && each.match(abc[0])) return true
+        })
+        
+        console.log(see)
+        
+        
+        
+        
     </script>
 
 </body></html>
