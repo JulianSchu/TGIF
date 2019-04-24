@@ -22,7 +22,10 @@ var vm = new Vue({
                 .then(data => {
                     const dataResults = data.results[0];
                     const people = dataResults.members;
-                    this.users = people;
+                    people.forEach(function(each){
+                        each.fullname = each.first_name + ' ' + (each.middle_name || '') + ' ' + each.last_name;                      
+                    });
+                this.users = people;
                     this.states = getState(people)
                 })
                 .catch(function (err) {
@@ -46,11 +49,11 @@ var vm = new Vue({
             let nStr = this.search;
             if (this.parties.length === 0) {
                 return this.users.filter(function (user) {
-                    if (user.state.match(sStr) && user.last_name.match(nStr)) return true;
+                    if (user.state.match(sStr) && user.fullname.match(nStr)) return true;
                 })
             } else {
                 return this.users.filter(function (user) {
-                    if (pArray.indexOf(user.party) != -1 && user.state.match(sStr) && user.last_name.match(nStr)) return true;
+                    if (pArray.indexOf(user.party) != -1 && user.state.match(sStr) && user.fullname.match(nStr)) return true;
                 });
             };
         }

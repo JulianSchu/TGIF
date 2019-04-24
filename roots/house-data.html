@@ -83,9 +83,9 @@
 
         <div class="container input-group flex-nowrap mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text text-dark font border border-dark" id="addon-wrapping">Search by last name</span>
+                <span class="input-group-text text-dark font border border-dark" id="addon-wrapping">Search by name</span>
             </div>
-            <input type="text" class="form-control border border-dark" placeholder="Please enter last name (capital letter is considered)" aria-label="Username" aria-describedby="addon-wrapping" v-model="search">
+            <input type="text" class="form-control border border-dark" placeholder="Please enter name (capital letters are considered)" aria-label="Username" aria-describedby="addon-wrapping" v-model="search" v-on:keyup="nullTable()">
         </div>
 
         <div class="container d-flex">
@@ -133,7 +133,7 @@
                     <tr v-for="(oneUser, index) in filteredUsers" :key="index">
                         <td>
                             <a :href="oneUser.url" class="text-decoration-none">
-                                {{oneUser.first_name}} {{oneUser.middle_name}} {{oneUser.last_name}}
+                                {{oneUser.fullname}}
                             </a>
                         </td>
                         <td :class="oneUser.party">{{oneUser.party}}</td>
@@ -154,4 +154,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="Assets/js/main.js"></script>
 
-</body></html>
+</body>
+
+</html>
