@@ -288,5 +288,4 @@ function createStatsTable(statistics) {
             table.appendChild(tfoot);
         }
     })
-
 }
