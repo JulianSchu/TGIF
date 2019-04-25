@@ -57,27 +57,31 @@ let statistics = {
 
 function getSum(obj) {
 
-    let Rs = [],
-        Ds = [],
-        Is = [],
-        generalInfo = [Rs, Ds, Is, obj]
+    let rs = [],
+        ds = [],
+        is = [],
+        generalInfo = [rs, ds, is, obj]
 
     for (i = 0; i < obj.length; i++) {
         if (obj[i].party === 'R') {
-            Rs.push(obj[i])
+            rs.push(obj[i])
         } else if (obj[i].party === 'D') {
-            Ds.push(obj[i])
+            ds.push(obj[i])
         } else if (obj[i].party === 'I') {
-            Is.push(obj[i])
+            is.push(obj[i])
         }
     }
 
-    statistics.totalMembers = Rs.length + Ds.length + Is.length;
+    statistics.totalMembers = rs.length + ds.length + is.length;
 
     statistics.parties.forEach(function (each) {
         let i = statistics.parties.indexOf(each);
         each.noMember = generalInfo[i].length;
-        each.vwp_avg = votesWithParty(generalInfo[i]) + "%";
+        avvwp = votesWithParty(generalInfo[i])
+        if (avvwp === 'n/a') {
+            each.vwp_avg = votesWithParty(generalInfo[i])
+        } else {
+            each.vwp_avg = votesWithParty(generalInfo[i]) + "%";}
     })
 }
 
@@ -91,7 +95,7 @@ function votesWithParty(p) {
     if (sumOfVotes != 0) {
         return (sumOfVotesWithParty / sumOfVotes * 100).toFixed(1)
     } else {
-        return 0
+        return 'n/a'
     }
 }
 
