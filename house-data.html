@@ -92,12 +92,12 @@
             <div class="col-8 filter border border-dark border-right-0 rounded-top">
                 <span>Filter by Party&#58; </span>
 
-                <input type="checkbox" id="R" name="Party" value="R" v-model="parties" v-on:change="nullTable()">
                 <label for="R">Republican</label>
-                <input type="checkbox" id="D" name="Party" value="D" v-model="parties" v-on:change="nullTable()">
+                <input type="checkbox" id="R" name="Party" value="R" v-model="parties" v-on:change="nullTable()">
                 <label for="D">Democrat</label>
-                <input type="checkbox" id="I" name="Party" value="I" v-model="parties" v-on:change="nullTable()">
+                <input type="checkbox" id="D" name="Party" value="D" v-model="parties" v-on:change="nullTable()">
                 <label for="I">Independent</label>
+                <input type="checkbox" id="I" name="Party" value="I" v-model="parties" v-on:change="nullTable()">
             </div>
 
             <div class="col-4 filter border border-dark border-left-0 rounded-top">
@@ -123,7 +123,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Senator <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="0" class="fas fa-sort text-white"></i></button></th>
-                        <th scope="col">Party Affiliation <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="1" class="fas fa-sort text-white"></i></button></th>
+                        <th scope="col">Party <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="1" class="fas fa-sort text-white"></i></button></th>
                         <th scope="col">State <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="2" class="fas fa-sort text-white"></i></button></th>
                         <th scope="col">Seniority <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="3" class="fas fa-sort text-white"></i></button></th>
                         <th scope="col">Party Votes <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="4" class="fas fa-sort text-white"></i></button></th>
