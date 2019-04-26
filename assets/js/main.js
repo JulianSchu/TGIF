@@ -22,7 +22,11 @@ var vm = new Vue({
                     const dataResults = data.results[0];
                     const people = dataResults.members;
                     people.forEach(function(each){
-                        each.fullname = each.first_name + ' ' + (each.middle_name || '') + ' ' + each.last_name;                      
+                        if(each.middle_name === null) {
+                            each.fullname = each.first_name + ' ' + each.last_name;
+                        } else {
+                            each.fullname = each.first_name + ' ' + each.middle_name + ' ' + each.last_name;     
+                            }
                     });
                 this.users = people;
                     this.states = getState(people)
