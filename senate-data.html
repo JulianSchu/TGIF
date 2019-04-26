@@ -138,7 +138,7 @@
                         <td :class="oneUser.party">{{oneUser.party}}</td>
                         <td :class="oneUser.state">{{oneUser.state}}</td>
                         <td>{{oneUser.seniority}}</td>
-                        <td>{{oneUser.votes_with_party_pct}}%</td>
+                        <td>{{oneUser.votes_with_party_pct.toFixed(1)}}%</td>
                     </tr>
                 </tbody>
             </table>
