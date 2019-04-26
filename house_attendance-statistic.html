@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <main class="container-fluid bg-light">
+    <main id="statistic" class="container-fluid bg-light">
         <div class="container text-justify">
             <div class="row">
                 <div class="col-12 col-md-6">
@@ -97,6 +97,18 @@
                                 <th scope="col">% Voted with Party*</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr v-for="party in parties" :class="party.partyName">
+                                <td>{{party.partyName}}</td>
+                                <td>{{party.noMember}}</td>
+                                <td>{{party.vwp_avg}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-left"><small>*weighted average</small></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -114,11 +126,27 @@
                         </colgroup>
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Number of Missed Votes</th>
-                                <th scope="col">% Missed</th>
+                                <th scope="col">Name <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="0" class="fas fa-sort text-white"></i></button></th>
+                                <th scope="col">Number of Missed Votes <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="3" class="fas fa-sort text-white"></i></button></th>
+                                <th scope="col">% Missed <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="4" class="fas fa-sort text-white"></i></button></th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr v-for="one in la">
+                                <td>
+                                    <a :href="one.url" class="text-decoration-none">
+                                        {{one.fullname}}
+                                    </a>
+                                </td><!--
+                                --><td>{{one.missed_votes}}</td><!--
+                                --><td>{{one.missed_votes_pct}}%</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-left"><small>*ranking based on %</small></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <div class="col-12 col-md-6">
@@ -131,11 +159,27 @@
                         </colgroup>
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Number of Missed Votes</th>
-                                <th scope="col">% Missed</th>
+                                <th scope="col">Name <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="0" class="fas fa-sort text-white"></i></button></th>
+                                <th scope="col">Number of Missed Votes <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="3" class="fas fa-sort text-white"></i></button></th>
+                                <th scope="col">% Missed <button type="button" class="btn btn-sm bg-dark border-secondary btn-sort"><i id="4" class="fas fa-sort text-white"></i></button></th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr v-for="one in ma">
+                                <td>
+                                    <a :href="one.url" class="text-decoration-none">
+                                        {{one.fullname}}
+                                    </a>
+                                </td><!--
+                                --><td>{{one.missed_votes}}</td><!--
+                                --><td>{{one.missed_votes_pct}}%</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-left"><small>*ranking based on %</small></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -146,8 +190,7 @@
         <small class="text-white font-weight-bold">&copy; TGIF | ALL RIGHTS RESERVED</small>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="assets/js/statistic.js"></script>
 
-</body>
-
-</html>
+</body></html>

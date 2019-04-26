@@ -1,59 +1,51 @@
-localStorage.getItem("data")
-
 let url = document.getElementById('source').textContent;
-let myHeader = {
-    headers: {
-        'X-API-Key': 'SWQPv9Ilwk8bHWdt9rlgn7xuEzmbjq3kAxhd5ogr'
-    }
-}
 
-fetch(url, myHeader)
-    .then(res => res.json())
-    .then(function (data) {
-        const dataResults = data.results[0];
-        const people = dataResults.members;
-        getSum(people);
-        tenPercent(statistics, people);
-        createStatsTable(statistics);
-    })
-    .catch(function (err) {
-        console.log(err);
-        alert('Sorry! Something went really wrong. No data will be displayed. There is no response from the source. Maybe they are undergoing a major update. I mean who knows. Everything is possible. So... Please try again later and by later I mean tomorrow or never. BTW I really don\'t like this pop out alert box. But I am too lazy to do anything about it. Have a nice day and may god protect you and your family.')
-    })
-
-///////////////////////////////////////////////////
-//// Statistics
-
-let statistics = {
-    totalMembers: 0,
-    parties: [{
-            partyName: 'Republican',
-            noMember: 0,
-            vwp_avg: 0
-        },
-        {
-            partyName: 'Democrat',
-            noMember: 0,
-            vwp_avg: 0
-        },
-        {
-            partyName: 'Independent',
-            noMember: 0,
-            vwp_avg: 0
-        },
-        {
-            partyName: 'Total',
-            noMember: 0,
-            vwp_avg: 0
+var vm = new Vue({
+    el: '#statistic',
+    data: {
+        users: [],
+        parties: [],
+        la: [],
+        ma: [],
+        ll: [],
+        ml: []
+    },
+    methods: {
+        fetchData() {
+            fetch(url, {
+                    headers: {
+                        'X-API-Key': 'bkE5mazR6CC9BBNdkHiTlHZBTzivfvrq4eWkam6g' //'SWQPv9Ilwk8bHWdt9rlgn7xuEzmbjq3kAxhd5ogr'        
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const dataResults = data.results[0];
+                    const people = dataResults.members;
+                    people.forEach(function (each) {
+                        if (each.middle_name === null) {
+                            each.fullname = each.first_name + ' ' + each.last_name;
+                        } else {
+                            each.fullname = each.first_name + ' ' + each.middle_name + ' ' + each.last_name;
+                        }
+                    });
+                    this.users = people;
+                    this.parties = getSum(people);
+                    let result = tenPercent(people);
+                    this.la = result[0][1];
+                    this.ma = result[1][1];
+                    this.ll = result[2][1];
+                    this.ml = result[3][1];
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    alert('Sorry! Something went really wrong. No data will be displayed. There is no response from the source. Maybe they are undergoing a major update. I mean who knows. Everything is possible. So... Please try again later and by later I mean tomorrow or never. BTW I really don\'t like this pop out alert box. But I am too lazy to do anything about it. Have a nice day and may god protect you and your family.')
+                })
         }
-             ],
-    stats: [
-    ['la', []],
-    ['ma', []],
-    ['ll', []],
-    ['ml', []]
-    ]
-}
+    },
+    mounted() {
+        this.fetchData();
+    }
+})
 
 function getSum(obj) {
 
@@ -72,17 +64,33 @@ function getSum(obj) {
         }
     }
 
-    statistics.totalMembers = rs.length + ds.length + is.length;
+    let parties = [
+        {
+            partyName: 'Republican'
+        },
+        {
+            partyName: 'Democrat'
+        },
+        {
+            partyName: 'Independent'
+        },
+        {
+            partyName: 'Total'
+        }
+    ]
 
-    statistics.parties.forEach(function (each) {
-        let i = statistics.parties.indexOf(each);
+    parties.forEach(function (each) {
+        let i = parties.indexOf(each);
         each.noMember = generalInfo[i].length;
         avvwp = votesWithParty(generalInfo[i])
         if (avvwp === 'n/a') {
             each.vwp_avg = votesWithParty(generalInfo[i])
         } else {
-            each.vwp_avg = votesWithParty(generalInfo[i]) + "%";}
-    })
+            each.vwp_avg = votesWithParty(generalInfo[i]) + "%";
+        }
+    });
+
+    return parties
 }
 
 function votesWithParty(p) {
@@ -180,9 +188,16 @@ function getML(a, b, c) {
 
 let functions = [getLA, getMA, getLL, getML];
 
-function tenPercent(statistics, c) {
-    statistics.stats.forEach(function (each) {
-        let i = statistics.stats.indexOf(each);
+function tenPercent(c) {
+    let stats = [
+        ['la', []],
+        ['ma', []],
+        ['ll', []],
+        ['ml', []]
+        ]
+
+    stats.forEach(function (each) {
+        let i = stats.indexOf(each);
         var least, bottoms, x, y, z, rest, restBtms, keepOnSearching, func;
         least = [];
         bottoms = [];
@@ -203,10 +218,7 @@ function tenPercent(statistics, c) {
                 if (z < 0.1) {
                     keepOnSeaching = true;
                 } else {
-                    statistics.stats[i][1] = bottoms.map(function (each) {
-                        return [each.first_name + " " + (each.middle_name || "") + " " + each.last_name, each.missed_votes, each.missed_votes_pct + "%",
-                        each.url]
-                    });
+                    stats[i][1] = bottoms;
                 }
             }
         } else {
@@ -223,73 +235,85 @@ function tenPercent(statistics, c) {
                 if (z < 0.1) {
                     keepOnSeaching = true;
                 } else {
-                    statistics.stats[i][1] = bottoms.map(function (each) {
-                        return [each.first_name + " " + (each.middle_name || "") + " " + each.last_name, each.total_votes, each.votes_with_party_pct + "%", each.url]
-                    });
+                    stats[i][1] = bottoms;
                 }
             }
         }
     });
+    return stats
 }
 
-///////////////////////////////////////////////
-//create table
+let sortBtns = document.getElementsByClassName('fas fa-sort');
 
-function createStatsTable(statistics) {
-    let glance = ['glance', []]
+for (i = 0; i < sortBtns.length; i++) {
+    sortBtns[i].addEventListener('click', sortTable)
+}
 
-    glance[1] = statistics.parties.map(function (one) {
-        return [one.partyName, one.noMember, one.vwp_avg, '#']
-    })
-
-    let tableInputs = statistics.stats.concat([glance]);
-    tableInputs.forEach(function (each) {
-        let i = tableInputs.indexOf(each);
-        let table = document.getElementById(i);
-        let tbody = document.createElement('tbody');
-        if (table != null) {
-            each[1].forEach(function (single) {
-                let tr = document.createElement('tr');
-                tr.setAttribute('class', single[0])
-                if (i != 4) {
-                    let a = document.createElement('a');
-                    a.setAttribute('href', single[single.length - 1]);
-                    a.setAttribute('class', 'text-decoration-none')
-                    a.innerHTML = single[0];
-                    let td = document.createElement('td');
-                    td.appendChild(a);
-                    tr.appendChild(td);
-                } else {
-                    let td = document.createElement('td');
-                    td.innerHTML = single[0];
-                    tr.appendChild(td)
-                };
-                for (n = 1; n < single.length - 1; n++) {
-                    let col = document.createElement('td');
-                    let content = document.createTextNode(single[n]);
-                    col.appendChild(content);
-                    tr.appendChild(col);
-                }
-                tbody.appendChild(tr);
-            })
-            table.appendChild(tbody);
-            let tfoot = document.createElement('tfoot');
-            let noteRow = document.createElement('tr');
-            let note = document.createElement('td');
-            note.setAttribute('colspan', '3');
-            note.setAttribute('class', 'text-left')
-            let small = document.createElement('small');
-            let noteText
-            if (i != 4) {
-                noteText = document.createTextNode('*ranking based on %');
+function sortTable() {
+    var n, links, switching, rows, i, x, y, shouldSwitch, dir, switchcount, heading, tbody
+    n = this.getAttribute('id');
+    switching = true;
+    dir = 'asc';
+    switchcount = 0;
+    tbody = this.parentNode.parentNode.parentNode.parentElement.parentElement.children[2]
+    rows = tbody.childNodes;
+ 
+    while (switching) {
+        switching = false;
+        for (i = 0; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            if (n == 0) {
+                x = rows[i].childNodes[0].childNodes[0];
+                y = rows[i + 1].childNodes[0].childNodes[0];
             } else {
-                noteText = document.createTextNode('*weighted average')
-            };
-            small.appendChild(noteText);
-            note.appendChild(small);
-            noteRow.appendChild(note);
-            tfoot.appendChild(noteRow);
-            table.appendChild(tfoot);
+                x = rows[i].childNodes[n-2];
+                y = rows[i + 1].childNodes[n-2];
+            }
+            if (dir === "asc") {
+                if (n == 3) {
+                    if (+x.innerHTML > +y.innerHTML) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            } else if (dir === "desc") {
+                if (n == 3) {
+                    if (+x.innerHTML < +y.innerHTML) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
         }
-    })
+        if (shouldSwitch) {
+            if (n == 0) {
+                let nameNode = x.parentNode;
+                let nameRow = nameNode.parentNode;
+                let nameNode1 = y.parentNode;
+                let nameRow1 = nameNode1.parentNode;
+                nameRow.parentNode.insertBefore(nameRow1, nameRow);
+                switching = true;
+                switchcount++
+            } else {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++
+            }
+        } else {
+            if (switchcount == 0 && dir === "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
 }
